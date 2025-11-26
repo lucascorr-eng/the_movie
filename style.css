@@ -1,4 +1,13 @@
+
+* { 
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+}
+
 body { 
+  margin: 0 auto;
+  max-width: 800px;
   background-color: rgb(7, 6, 19);
   font-family: "Inter", sans-serif;
   color: white;
@@ -14,6 +23,7 @@ header {
   }
 
   & .input {
+    position: relative;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -33,7 +43,11 @@ header {
     }
 
     & img {
+      position: absolute;
       margin-right: 1rem;
+      transform: translateY(-50%);
+      top: 50%;
+      left: 1%;
     }
   }
 
@@ -41,7 +55,7 @@ header {
 
 .container {
  
-  padding: 2rem;
+  padding: 0;
   max-width: 800px;
   margin: 2rem auto;
 
@@ -58,10 +72,61 @@ header {
   }
 }
 
+.content-wrapper {
+  width: 256px;
+  height: 340px;
+  border-radius: 1rem;
+  background: url(assets/img1.svg);
+  position: relative;
+}
+
+.content {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+
+  position: absolute;
+  transform: translateY(-50%);
+  top: 90%;
+  left: 5%;
+
+  & p {
+    font-size: 1.25;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+
+  
+  & .note {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    
+    font-size: 0.875rem;
+    color: #868585;
+    
+    & img {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+    
+  }
+  
+}
+
+.content-wrapper:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px -90px 20px -28px inset;
+}
+
+.content-wrapper:hover .content {
+  opacity: 1;
+}
+
+
 footer {
   display: flex;
   justify-content: center;
   & img {
     width: 250px;
   }
-}
+} 
