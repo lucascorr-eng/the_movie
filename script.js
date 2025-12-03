@@ -3,14 +3,14 @@
 const modal = document.querySelector("dialog");  //dialog 
 const buttonClose = document.querySelector("dialog button"); //button close dialog
 const listMovie = document.querySelector(".container"); //div father - box
-const movies = listMovie.querySelectorAll("div"); //div son - list of the movies
+const cards = listMovie.querySelectorAll(".content-wrapper"); //div son - list of the cards
 const inputSearch = document.querySelector("#search"); //input type text
 
 
 
 // open div clicked
 
-movies.forEach( movieSelct => {
+cards.forEach( movieSelct => {
   movieSelct.addEventListener("click", function(eventet) {
     const movieCLick = event.target;
     console.log("a div clickada foi o", movieCLick.id);
@@ -39,6 +39,7 @@ inputSearch.addEventListener("keydown", async (event) => {
 
     try {
       const result = await searchSeries(query); //async function that calls api
+      renderMovies(result)
     } catch (error) {
       console.log(error); //show message on screen
     }
@@ -74,4 +75,43 @@ async function searchSeries(query) {
   })
 
   console.log("a busca com o array modificado", results)
+
+  return results;
+}
+
+
+// function that modify cards
+
+function renderMovies (moviesData) {
+  const maxCards = cards.length;
+  const selected = moviesData.slice(0, maxCards)
+
+  cards.forEach ((cards, index) => {
+    const movie = selected[index];
+
+    if(!movie) {
+      cards.style.display = "none"
+      return;
+    }
+
+    cards.style.display = "block";
+
+    const titleEl = cards.querySelector(".content p");
+    const ratingEl = cards.querySelector(".note span");
+    const yearEl = cards.querySelector(".year");
+
+    titleEl.textContent  = movie.title ?? "Sem título";
+    ratingEl.textContent = movie.rating ?? "0.0";
+    yearEl.textContent   = movie.year ?? "—";
+
+    if (movie.poster) {
+      cards.style.backgroundImage = `url(${movie.poster})`;
+      cards.style.backgroundSize = "cover"
+      cards.style.backgroundPosition = "center"
+    }
+
+    else {
+      cards.style.backgroundImage = "none";
+    }
+  });
 }
